@@ -3,7 +3,10 @@
     <xsl:output method="xml" indent="yes" xalan:indent-amount="4" cdata-section-elements="message stack-trace"/>
 
     <xsl:template match="/">
-        <test-results name="{//testsuite[1]/@name}" total="{count(//testcase)}" failures="{count(//error) + count(//failure)}" not-run="{count(//skipped)}" time="{//testsuite[1]/@time}">
+        <test-results name="{//testsuite[1]/@name}" total="{count(//testcase)}" errors="0" failures="{count(//error) + count(//failure)}" not-run="{count(//skipped)}" inconclusive="0" skipped="0" ignored="0" invalid="0" date="" time="{//testsuite[1]/@time}">
+
+            <environment nunit-version="3" clr-version="3" os-version="windows" platform="windows" cwd=" " machine-name=" " user=" " user-domain=" " ></environment>
+            <culture-info current-culture="en-us" current-uiculture="en-us" />
             <xsl:apply-templates select="testcase"/>
             <xsl:apply-templates select="testsuite"/>
 
@@ -26,7 +29,10 @@
             </xsl:choose>
         </xsl:variable>
 
-        <xsl:variable name="time">
+        <xsl:variable name="date">
+           <xsl:value-of select="@date"></xsl:value-of>
+       </xsl:variable> 
+       <xsl:variable name="time">
             <xsl:choose>
                 <xsl:when test="count(skipped) > 0"></xsl:when>
                 <xsl:otherwise>
@@ -38,7 +44,7 @@
         <xsl:variable name="success">
             <xsl:choose>
                 <xsl:when test="count(skipped) > 0"></xsl:when>
-                <xsl:when test="count(*) > 0">False</xsl:when>
+                <xsl:when test="count(failure) > 0">False</xsl:when>
                 <xsl:otherwise>True</xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -53,7 +59,7 @@
         <xsl:variable name="result">
             <xsl:choose>
                 <xsl:when test="count(skipped) > 0">Skipped</xsl:when>
-                <xsl:when test="count(*) > 0">Failure</xsl:when>
+                <xsl:when test="count(failure) > 0">Failure</xsl:when>
                 <xsl:otherwise>Success</xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -74,8 +80,15 @@
     <xsl:template match="testsuite">
         <xsl:variable name="success">
             <xsl:choose>
-                <xsl:when test="count(//testcase/*) > 0">False</xsl:when>
+                <xsl:when test="count(//testcase/failure) > 0">False</xsl:when>
                 <xsl:otherwise>True</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <xsl:variable name="result">
+            <xsl:choose>
+                <xsl:when test="count(//testcase/failure) > 0">Failure</xsl:when>
+                <xsl:otherwise>Success</xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
 
@@ -85,12 +98,12 @@
                     <xsl:value-of select="@assertions"></xsl:value-of>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="count(//testcase) - count(//testcase/*)"></xsl:value-of>
+                    <xsl:value-of select="count(//testcase) - count(//testcase/failure)"></xsl:value-of>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
 
-        <test-suite name="{@name}" description="{@file}" success="{$success}" time="{@time}" asserts="{$asserts}">
+        <test-suite type="TestSuite" executed="True" result="{$result}" name="{@name}" description="{@file}" success="{$success}" time="{@time}" asserts="{$asserts}">
             <xsl:if test="@file != ''">
                 <categories>
                     <category name="{@file}" />
