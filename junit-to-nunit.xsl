@@ -100,7 +100,7 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <test-suite type="TestSuite" name="{@name}" description="{@file}" executed="True" result="{$result}" success="{$success}" time="2.582" asserts="{$asserts}">
+        <test-suite type="TestFixture" name="{@name}" description="{@file}" executed="True" result="{$result}" success="{$success}" time="2.582" asserts="{$asserts}">
             <xsl:if test="@file != ''">
                 <categories>
                     <category name="{@file}" />
