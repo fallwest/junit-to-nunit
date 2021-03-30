@@ -3,7 +3,7 @@
     <xsl:output method="xml" indent="yes" xalan:indent-amount="4" cdata-section-elements="message stack-trace"/>
 
     <xsl:template match="/">
-        <test-results name="{//testsuite[1]/@name}" total="{count(//testcase)}" errors="0" failures="{count(//error) + count(//failure)}" not-run="{count(//skipped)}" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2010-10-18" time="13:23:35">
+        <test-results name="{//testsuite[1]/@name}" total="{count(//testcase)}" errors="0" failures="{count(//error) + count(//failure)}" not-run="{count(//skipped)}" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2010-10-18" time="15.3">
             <environment nunit-version="2.5.8.0" clr-version="2.0.50727.1433" os-version="Unix 2.6.32.25" platform="Unix" cwd="/home/work/src" machine-name="cedar" user="charlie" user-domain="cedar" />
             <culture-info current-culture="en-us" current-uiculture="en-us" />
             <xsl:apply-templates select="testcase"/>
