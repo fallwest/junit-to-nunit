@@ -62,7 +62,7 @@
                 <xsl:otherwise>Success</xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <test-case name="{@name}" executed="{$executed}" result="{$result}" success="{$success}" time="0.001" asserts="{$asserts}" >
+        <test-case name="{@name}" executed="{$executed}" result="{$result}" success="{$success}" time="1.0" asserts="{$asserts}" >
             <xsl:if test="@classname != ''">
                 <categories>
                     <category name="{@classname}" />
@@ -100,7 +100,7 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <test-suite type="TestSuite" name="{@name}" description="{@file}" executed="True" result="{$result}" success="{$success}" time="0.582" asserts="{$asserts}">
+        <test-suite type="TestSuite" name="{@name}" description="{@file}" executed="True" result="{$result}" success="{$success}" time="2.582" asserts="{$asserts}">
             <xsl:if test="@file != ''">
                 <categories>
                     <category name="{@file}" />
