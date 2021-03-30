@@ -3,9 +3,11 @@
     <xsl:output method="xml" indent="yes" xalan:indent-amount="4" cdata-section-elements="message stack-trace"/>
 
     <xsl:template match="/">
-        <test-results name="{//testsuite[1]/@name}" total="{count(//testcase)}" errors="0" failures="{count(//error) + count(//failure)}" not-run="{count(//skipped)}" inconclusive="0" skipped="0" ignored="0" invalid="0" date="2020-01-01" time="{//testsuite[1]/@time}">
+        <test-results name="{//testsuite[1]/@name}" total="{count(//testcase)}" errors="0" failures="{count(//error) + count(//failure)}" 
+                      not-run="{count(//skipped)}" inconclusive="0" skipped="0" ignored="0" invalid="0" date="2020-01-01" time="1.0">
 
-            <environment nunit-version="3" clr-version="3" os-version="windows" platform="windows" cwd=" " machine-name=" " user=" " user-domain=" " ></environment>
+            <environment nunit-version="3" clr-version="3" os-version="windows" platform="windows" cwd="/home" machine-name="testo" user="tester" 
+                         user-domain="TU" ></environment>
             <culture-info current-culture="en-us" current-uiculture="en-us" />
             <xsl:apply-templates select="testcase"/>
             <xsl:apply-templates select="testsuite"/>
@@ -64,7 +66,7 @@
             </xsl:choose>
         </xsl:variable>
 
-        <test-case name="{@name}" description="{@classname}" success="{$success}" time="{$time}" executed="{$executed}" asserts="{$asserts}" result="{$result}">
+        <test-case name="{@name}" description="{@classname}" success="{$success}" time="1.0" executed="{$executed}" asserts="{$asserts}" result="{$result}">
             <xsl:if test="@classname != ''">
                 <categories>
                     <category name="{@classname}" />
@@ -103,7 +105,8 @@
             </xsl:choose>
         </xsl:variable>
 
-        <test-suite type="TestSuite" executed="True" result="{$result}" name="{@name}" description="{@file}" success="{$success}" time="{@time}" asserts="{$asserts}">
+        <test-suite type="TestSuite" executed="True" result="{$result}" name="{@name}" description="{@file}" success="{$success}" time="1.0" 
+                    asserts="{$asserts}">
             <xsl:if test="@file != ''">
                 <categories>
                     <category name="{@file}" />
