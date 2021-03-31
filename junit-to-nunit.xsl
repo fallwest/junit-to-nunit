@@ -3,8 +3,8 @@
     <xsl:output method="xml" indent="yes" xalan:indent-amount="4" cdata-section-elements="message stack-trace"/>
 
     <xsl:template match="/">
-        <test-results name="{//testsuite[1]/@name}" total="{count(//testcase)}" errors="0" failures="{count(//error) + count(//failure)}" not-run="{count(//skipped)}" inconclusive="0" ignored="0" skipped="0" invalid="0" time="15.3" timestamp="2010-10-18 12:00:17">
-            <environment nunit-version="2.5.8.0" clr-version="2.0.50727.1433" os-version="Unix 2.6.32.25" platform="Unix" cwd="/home/work/src" machine-name="cedar" user="charlie" user-domain="cedar" />
+        <test-results name="{//testsuite[1]/@name}" total="{count(//testcase)}" errors="0" failures="{count(//error) + count(//failure)}" not-run="{count(//skipped)}" inconclusive="0" ignored="0" skipped="0" invalid="0" time="15.3" date="2010-10-18">
+            <environment nunit-version="na" clr-version="na" os-version="na" platform="na" cwd="na" machine-name="na" user="na" user-domain="na" />
             <culture-info current-culture="en-us" current-uiculture="en-us" />
             <xsl:apply-templates select="testcase"/>
             <xsl:apply-templates select="testsuite"/>
@@ -62,7 +62,7 @@
                 <xsl:otherwise>Success</xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <test-case name="{@name}" executed="{$executed}" result="{$result}" success="{$success}" time="1.0" asserts="{$asserts}" >
+        <test-case name="{@name}" executed="{$executed}" result="{$result}" success="{$success}" time="1.0" asserts="{$asserts}" date="2010-10-18">
             <xsl:if test="@classname != ''">
                 <categories>
                     <category name="{@classname}" />
@@ -100,7 +100,7 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <test-suite type="TestFixture" name="{@name}" description="{@file}" executed="True" result="{$result}" success="{$success}" time="2.582" asserts="{$asserts}">
+        <test-suite type="TestFixture" name="{@name}" description="{@file}" executed="True" result="{$result}" success="{$success}" time="2.582" asserts="{$asserts}" date="2010-10-18">
             <xsl:if test="@file != ''">
                 <categories>
                     <category name="{@file}" />
